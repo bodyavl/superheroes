@@ -3,7 +3,7 @@ import { SuperheroesService } from './superheroes.service';
 import { SuperheroesController } from './superheroes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Superhero } from './entities/superhero.entity';
-import { PicturesModule } from 'src/pictures/pictures.module';
+import { PicturesModule } from '../pictures/pictures.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Superhero]), PicturesModule],

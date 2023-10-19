@@ -1,5 +1,5 @@
-import { Superhero } from 'src/superheroes/entities/superhero.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Superhero } from '../../superheroes/entities/superhero.entity';
 
 @Entity()
 export class Picture {
@@ -9,6 +9,8 @@ export class Picture {
   @Column({ type: 'bytea' })
   data: Buffer;
 
-  @ManyToOne(() => Superhero, (superhero) => superhero.pictures)
+  @ManyToOne(() => Superhero, (superhero) => superhero.pictures, {
+    onDelete: 'CASCADE',
+  })
   superhero: Superhero;
 }

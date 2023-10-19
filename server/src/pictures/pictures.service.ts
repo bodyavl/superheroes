@@ -1,9 +1,8 @@
-import { Injectable, StreamableFile } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, FindOptionsWhere, Repository } from 'typeorm';
 import { Picture } from './entities/picture.entity';
 import { Superhero } from 'src/superheroes/entities/superhero.entity';
-import { createReadStream } from 'fs';
 
 @Injectable()
 export class PicturesService {
@@ -20,5 +19,9 @@ export class PicturesService {
   async findOne(id: number): Promise<Picture> {
     const picture = await this.pictureRepository.findOne({ where: { id } });
     return picture;
+  }
+
+  async delete(options: FindOptionsWhere<Picture>): Promise<DeleteResult> {
+    return this.pictureRepository.delete(options);
   }
 }
