@@ -7,12 +7,10 @@ import { Repository } from 'typeorm';
 import { PicturesService } from '../pictures/pictures.service';
 import {
   paginate,
-  Pagination,
   IPaginationOptions,
-  paginateRawAndEntities,
   paginateRaw,
+  Pagination,
 } from 'nestjs-typeorm-paginate';
-import { query } from 'express';
 import { Picture } from '../pictures/entities/picture.entity';
 
 @Injectable()
@@ -37,10 +35,10 @@ export class SuperheroesService {
     return superhero;
   }
 
-  async paginate(options: IPaginationOptions) {
+  async paginate(options: IPaginationOptions): Promise<Pagination<Superhero>> {
     const superheroesQuery = this.superheroesRepository
       .createQueryBuilder('s')
-      .select(['s.id', 's.nickname'])
+      .select('s.id, s.nickname')
       .addSelect((subQuery) => {
         return subQuery
           .select('p.id', 'pictureId')
@@ -51,7 +49,7 @@ export class SuperheroesService {
       }, 'pictureId')
       .orderBy('s.id');
 
-    return paginate<Superhero>(superheroesQuery, options);
+    return paginateRaw<Superhero>(superheroesQuery, options);
   }
 
   async findOne(id: number): Promise<Superhero> {
