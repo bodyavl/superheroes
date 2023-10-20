@@ -1,6 +1,6 @@
 import { FC } from "react";
 import s from "./Pages.module.scss";
-import { PageButton } from "../../Components/UI";
+import { PageButton, SquareLink } from "../../Components/UI";
 
 interface IPaginationProps {
   totalPages: number;
@@ -10,6 +10,9 @@ interface IPaginationProps {
 const Pages: FC<IPaginationProps> = ({ totalPages, currentPage }) => {
   return (
     <div className={s.container}>
+      {currentPage > 1 && (
+        <SquareLink to={`?page=${currentPage - 1}`}>&larr;</SquareLink>
+      )}
       {Array(totalPages)
         .fill(0)
         .map((_, index) => (
@@ -18,6 +21,9 @@ const Pages: FC<IPaginationProps> = ({ totalPages, currentPage }) => {
             isCurrent={currentPage === index + 1}
           />
         ))}
+      {currentPage < totalPages && (
+        <SquareLink to={`?page=${currentPage + 1}`}>&rarr;</SquareLink>
+      )}
     </div>
   );
 };

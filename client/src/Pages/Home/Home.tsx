@@ -12,18 +12,15 @@ const Home = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <div className={s.container}>
-          <Info />
-          <Superheroes superheroes={response.items} />
-          <Pages
-            totalPages={response.meta.totalPages}
-            currentPage={response.meta.currentPage}
-          />
-        </div>
-      )}
+      {isLoading ? <Preloader /> : null}
+      <div className={s.container}>
+        <Info />
+        <Superheroes superheroes={response.items} />
+        <Pages
+          totalPages={response.meta.totalPages}
+          currentPage={response.meta.currentPage}
+        />
+      </div>
     </>
   );
 };
