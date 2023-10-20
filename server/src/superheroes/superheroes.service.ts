@@ -5,6 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Superhero } from './entities/superhero.entity';
 import { Repository } from 'typeorm';
 import { PicturesService } from '../pictures/pictures.service';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+  paginateRawAndEntities,
+  paginateRaw,
+} from 'nestjs-typeorm-paginate';
+import { query } from 'express';
+import { Picture } from '../pictures/entities/picture.entity';
 
 @Injectable()
 export class SuperheroesService {
@@ -28,16 +37,21 @@ export class SuperheroesService {
     return superhero;
   }
 
-  async findAll(): Promise<Superhero[]> {
-    const superheroes = await this.superheroesRepository.query(/*sql*/ `
-      SELECT s.id, 
-             s.nickname,
-             (SELECT p.id FROM picture p WHERE p."superheroId" = s.id ORDER BY p.id ASC LIMIT 1)
-             AS "pictureId" 
-          FROM superhero s 
-          ORDER BY s.id`);
+  async paginate(options: IPaginationOptions) {
+    const superheroesQuery = this.superheroesRepository
+      .createQueryBuilder('s')
+      .select(['s.id', 's.nickname'])
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('p.id', 'pictureId')
+          .from(Picture, 'p')
+          .where('p.superheroId = s.id')
+          .orderBy('p.id', 'ASC')
+          .limit(1);
+      }, 'pictureId')
+      .orderBy('s.id');
 
-    return superheroes;
+    return paginate<Superhero>(superheroesQuery, options);
   }
 
   async findOne(id: number): Promise<Superhero> {

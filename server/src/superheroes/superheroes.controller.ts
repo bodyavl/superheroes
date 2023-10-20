@@ -8,11 +8,13 @@ import {
   UploadedFiles,
   UseInterceptors,
   Put,
+  Query,
 } from '@nestjs/common';
 import { SuperheroesService } from './superheroes.service';
 import { CreateSuperheroDto } from './dto/create-superhero.dto';
 import { UpdateSuperheroDto } from './dto/update-superhero.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { FindAllQueryDto } from './dto/find-all-query.dto';
 
 @Controller('superheroes')
 export class SuperheroesController {
@@ -28,8 +30,8 @@ export class SuperheroesController {
   }
 
   @Get()
-  findAll() {
-    return this.superheroesService.findAll();
+  findAll(@Query() options: FindAllQueryDto) {
+    return this.superheroesService.paginate(options);
   }
 
   @Get(':id')
