@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  & > span {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #767e94;
+  }
+
+  & span:last-child {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #c3c8d4;
+  }
+}

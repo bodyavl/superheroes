@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Details, Home } from "../../Pages";
 import { homeLoader } from "../../Pages/Home/Home";
 import { BasicLayout } from "../Layouts";
+import { detailsLoader } from "../../Pages/Details/Details";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       {
         path: "details/:id",
         element: <Details />,
+        loader: detailsLoader,
       },
       {
         path: "add",

@@ -28,3 +28,7 @@ body {
   min-height: 100vh;
   color: white;
 }
+
+.slick-dots li button::before {
+  color: white;
+}

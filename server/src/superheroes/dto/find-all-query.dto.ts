@@ -9,7 +9,7 @@ export class FindAllQueryDto {
   page = 1;
 
   @IsInt()
-  @Min(5)
+  @Min(1)
   @IsOptional()
   @Transform(({ value }) => parseInt(value))
   limit = 5;

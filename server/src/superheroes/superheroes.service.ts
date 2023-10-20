@@ -68,8 +68,7 @@ export class SuperheroesService {
           LEFT JOIN picture p 
           ON p."superheroId" = s.id 
           WHERE s.id = $1
-          GROUP BY s.id
-          ORDER BY s.id`,
+          GROUP BY s.id`,
       [id],
     );
 
@@ -77,7 +76,7 @@ export class SuperheroesService {
       throw new NotFoundException('Superhero not found');
     }
 
-    return superhero;
+    return superhero[0];
   }
 
   async update(
