@@ -8,3 +8,4 @@ export { default as InputText } from "./InputText/InputText";
 export { default as Textarea } from "./Textarea/Textarea";
 export { default as Button } from "./Button/Button";
 export { default as InputFileImages } from "./InputFileImages/InputFileImages";
+export { default as DeleteButton } from "./DeleteButton/DeleteButton";

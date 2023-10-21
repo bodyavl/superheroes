@@ -3,6 +3,7 @@ import { AddHero, Details, EditHero, Home } from "../../Pages";
 import { homeLoader } from "../../Pages/Home/Home";
 import { BasicLayout } from "../Layouts";
 import { detailsLoader } from "../../Pages/Details/Details";
+import { editHeroLoader } from "../../Pages/EditHero/EditHero";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       {
         path: "edit/:id",
         element: <EditHero />,
+        loader: editHeroLoader,
       },
     ],
   },

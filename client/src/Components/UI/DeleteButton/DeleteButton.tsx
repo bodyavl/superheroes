@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes, FC } from "react";
 import trash from "../../../assets/images/trash.png";
-import s from "./Button.module.scss";
+import s from "./DeleteButton.module.scss";
 
 interface IDeleteButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const DeleteButton: FC<IDeleteButtonProps> = ({ onClick }) => {

@@ -11,7 +11,11 @@ const Card: FC<ICardProps> = ({ superhero }) => {
   return (
     <Link to={`/details/${superhero.id}`} className={s.container}>
       <img
-        src={`${import.meta.env.VITE_API_URL}/pictures/${superhero.pictureId}`}
+        src={
+          superhero.pictureId
+            ? `${import.meta.env.VITE_API_URL}/pictures/${superhero.pictureId}`
+            : ""
+        }
         alt={superhero.nickname}
         className={s.image}
       />

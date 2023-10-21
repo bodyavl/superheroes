@@ -94,7 +94,10 @@ export class SuperheroesService {
 
     await this.picturesService.delete({ superhero });
 
-    const updateUser = this.superheroesRepository.create(updateSuperheroDto);
+    const updateUser = {
+      ...superhero,
+      ...updateSuperheroDto,
+    };
 
     for (const picture of pictures) {
       await this.picturesService.create(picture.buffer, superhero);

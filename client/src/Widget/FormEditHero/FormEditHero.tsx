@@ -1,4 +1,4 @@
-import s from "./FormAddHero.module.scss";
+import s from "./FormEditHero.module.scss";
 import {
   Button,
   InputFileImages,
@@ -7,8 +7,7 @@ import {
 } from "../../Components/UI";
 import useSuperhero, { SuperheroActionTypes } from "../../hooks/useSuperhero";
 import { catchAxiosError } from "../../utils";
-import { addSuperhero } from "../../services";
-import { useNavigate } from "react-router-dom";
+import { updateSuperhero } from "../../services";
 import { ISuperheroDetails } from "../../interfaces";
 import { FC, useEffect } from "react";
 
@@ -18,8 +17,6 @@ interface IFormEditHeroProps {
 
 const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
   const [superhero, dispatch] = useSuperhero();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getSuperhero() {
@@ -33,28 +30,8 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
       );
 
       dispatch({
-        type: SuperheroActionTypes.SET_NICKNAME,
-        payload: initialSuperhero.nickname,
-      });
-      dispatch({
-        type: SuperheroActionTypes.SET_REAL_NAME,
-        payload: initialSuperhero.real_name,
-      });
-      dispatch({
-        type: SuperheroActionTypes.SET_CATCH_PHRASE,
-        payload: initialSuperhero.catch_phrase,
-      });
-      dispatch({
-        type: SuperheroActionTypes.SET_ORIGIN_DESCRIPTION,
-        payload: initialSuperhero.origin_description,
-      });
-      dispatch({
-        type: SuperheroActionTypes.SET_SUPERPOWERS,
-        payload: initialSuperhero.superpowers,
-      });
-      dispatch({
-        type: SuperheroActionTypes.SET_PICTURES,
-        payload: pictures,
+        type: SuperheroActionTypes.SET_SUPERHERO,
+        payload: { ...initialSuperhero, pictures },
       });
     }
     getSuperhero();
@@ -75,9 +52,9 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
         }
       });
 
-      await addSuperhero(formData);
+      await updateSuperhero(initialSuperhero.id, formData);
 
-      navigate("/");
+      alert("Hero updated successfully");
     } catch (error) {
       catchAxiosError(error);
     }
@@ -152,7 +129,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
         }
         value={superhero.pictures}
       />
-      <Button type="submit">Add Hero</Button>
+      <Button type="submit">Update Hero</Button>
     </form>
   );
 };

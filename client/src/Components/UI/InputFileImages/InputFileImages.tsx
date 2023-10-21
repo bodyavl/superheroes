@@ -32,7 +32,7 @@ const InputFileImages: FC<IInputFileImagesProps> = ({
     <div className={s.container}>
       <div className={s.preview}>
         {value?.map((image, index) => (
-          <div key={image.name} className={s.image}>
+          <div key={index} className={s.image}>
             <div className={s.close} onClick={() => handleCloseClick(index)}>
               &#x2715;
             </div>
