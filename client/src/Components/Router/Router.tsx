@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Details, Home } from "../../Pages";
+import { AddHero, Details, EditHero, Home } from "../../Pages";
 import { homeLoader } from "../../Pages/Home/Home";
 import { BasicLayout } from "../Layouts";
 import { detailsLoader } from "../../Pages/Details/Details";
@@ -22,9 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "add",
+        element: <AddHero />,
       },
       {
-        path: "details/:id",
+        path: "edit/:id",
+        element: <EditHero />,
       },
     ],
   },

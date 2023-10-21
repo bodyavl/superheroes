@@ -1,7 +1,8 @@
+import { FormAddHero } from "../../Widget";
 import s from "./AddHero.module.scss";
 
 const AddHero = () => {
-  return <div>AddHero</div>;
+  return <FormAddHero />;
 };
 
 export default AddHero;

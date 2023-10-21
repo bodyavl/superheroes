@@ -4,3 +4,7 @@ export { default as Preloader } from "./Preloader/Preloader";
 export { default as Carousel } from "./Carousel/Carousel";
 export { default as DetailsAbout } from "./DetailsAbout/DetailsAbout";
 export { default as SquareLink } from "./SquareLink/SquareLink";
+export { default as InputText } from "./InputText/InputText";
+export { default as Textarea } from "./Textarea/Textarea";
+export { default as Button } from "./Button/Button";
+export { default as InputFileImages } from "./InputFileImages/InputFileImages";

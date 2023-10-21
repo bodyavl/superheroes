@@ -4,10 +4,8 @@
   .imageContainer {
     .image {
       width: inherit;
+      height: inherit;
       object-fit: cover;
     }
   }
-}
-
-@media screen {
 }

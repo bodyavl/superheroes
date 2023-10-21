@@ -17,6 +17,7 @@ const Pages: FC<IPaginationProps> = ({ totalPages, currentPage }) => {
         .fill(0)
         .map((_, index) => (
           <PageButton
+            key={index}
             pageNumber={index + 1}
             isCurrent={currentPage === index + 1}
           />

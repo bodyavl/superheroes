@@ -25,6 +25,11 @@ body {
   color: white;
 }
 
+textarea {
+  font-family: "Poppins", sans-serif;
+  resize: none;
+}
+
 .slick-dots li button::before {
   color: white;
 }
