@@ -23,5 +23,6 @@ import { PicturesModule } from './pictures/pictures.module';
       logging: true,
     }),
   ],
+  providers: [],
 })
 export class AppModule {}

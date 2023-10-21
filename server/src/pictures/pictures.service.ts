@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, FindOptionsWhere, Repository } from 'typeorm';
 import { Picture } from './entities/picture.entity';
@@ -18,6 +18,9 @@ export class PicturesService {
 
   async findOne(id: number): Promise<Picture> {
     const picture = await this.pictureRepository.findOne({ where: { id } });
+
+    if (!picture) throw new NotFoundException('Picture not found');
+
     return picture;
   }
 

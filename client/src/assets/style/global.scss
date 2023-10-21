@@ -25,6 +25,10 @@ body {
   color: white;
 }
 
+::placeholder {
+  color: #475069;
+}
+
 textarea {
   font-family: "Poppins", sans-serif;
   resize: none;

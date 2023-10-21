@@ -1,9 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { Superhero } from '../src/superheroes/entities/superhero.entity';
-import { createReadStream, readFile } from 'fs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -14,11 +13,18 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+      }),
+    );
+
     await app.init();
   });
 
   describe('/superheroes', () => {
-    it('/add', () => {
+    it('/ (POST)', () => {
       const data = new FormData();
       data.append('nickname', 'Superman');
       data.append('real_name', 'Clark Kent');
@@ -27,11 +33,10 @@ describe('AppController (e2e)', () => {
       data.append('catch_phrase', 'Up, up and away!');
 
       return request(app.getHttpServer())
-        .post('/superheroes/add')
+        .post('/superheroes')
         .set('Content-Type', 'multipart/form-data')
         .send(data)
-        .expect(200)
-        .expect(Superhero);
+        .expect(200);
     });
   });
 });

@@ -28,6 +28,10 @@ export class SuperheroesService {
     const newSuperhero = this.superheroesRepository.create(createSuperheroDto);
     const superhero = await this.superheroesRepository.save(newSuperhero);
 
+    if (!pictures.length) {
+      return superhero;
+    }
+
     for (const picture of pictures) {
       await this.picturesService.create(picture.buffer, superhero);
     }
@@ -35,7 +39,7 @@ export class SuperheroesService {
     return superhero;
   }
 
-  async paginate(options: IPaginationOptions): Promise<Pagination<Superhero>> {
+  async paginate(options?: IPaginationOptions): Promise<Pagination<Superhero>> {
     const superheroesQuery = this.superheroesRepository
       .createQueryBuilder('s')
       .select('s.id, s.nickname')
