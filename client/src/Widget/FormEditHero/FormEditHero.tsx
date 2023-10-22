@@ -3,13 +3,14 @@ import {
   Button,
   InputFileImages,
   InputText,
+  Preloader,
   Textarea,
 } from "../../Components/UI";
 import useSuperhero, { SuperheroActionTypes } from "../../hooks/useSuperhero";
 import { catchAxiosError } from "../../utils";
 import { updateSuperhero } from "../../services";
 import { ISuperheroDetails } from "../../interfaces";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface IFormEditHeroProps {
   initialSuperhero: ISuperheroDetails;
@@ -17,6 +18,8 @@ interface IFormEditHeroProps {
 
 const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
   const [superhero, dispatch] = useSuperhero();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getSuperhero() {
@@ -40,6 +43,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setIsLoading(true);
       const formData = new FormData();
 
       Object.entries(superhero).forEach(([key, value]) => {
@@ -54,6 +58,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
 
       await updateSuperhero(initialSuperhero.id, formData);
 
+      setIsLoading(false);
       alert("Hero updated successfully");
     } catch (error) {
       catchAxiosError(error);
@@ -72,6 +77,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputText
@@ -84,6 +90,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputText
@@ -96,6 +103,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <Textarea
@@ -108,6 +116,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <Textarea
@@ -120,6 +129,7 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputFileImages
@@ -128,8 +138,12 @@ const FormEditHero: FC<IFormEditHeroProps> = ({ initialSuperhero }) => {
           dispatch({ type: SuperheroActionTypes.SET_PICTURES, payload: files })
         }
         value={superhero.pictures}
+        disabled={isLoading}
       />
-      <Button type="submit">Update Hero</Button>
+      {isLoading ? <Preloader /> : null}
+      <Button type="submit" disabled={isLoading}>
+        Update Hero
+      </Button>
     </form>
   );
 };

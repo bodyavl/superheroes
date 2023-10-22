@@ -3,21 +3,26 @@ import {
   Button,
   InputFileImages,
   InputText,
+  Preloader,
   Textarea,
 } from "../../Components/UI";
 import useSuperhero, { SuperheroActionTypes } from "../../hooks/useSuperhero";
 import { catchAxiosError } from "../../utils";
 import { addSuperhero } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const FormAddHero = () => {
   const [superhero, dispatch] = useSuperhero();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setIsLoading(true);
       const formData = new FormData();
 
       Object.entries(superhero).forEach(([key, value]) => {
@@ -31,6 +36,8 @@ const FormAddHero = () => {
       });
 
       await addSuperhero(formData);
+
+      setIsLoading(false);
 
       navigate("/");
     } catch (error) {
@@ -50,6 +57,7 @@ const FormAddHero = () => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputText
@@ -62,6 +70,7 @@ const FormAddHero = () => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputText
@@ -74,6 +83,7 @@ const FormAddHero = () => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <Textarea
@@ -86,6 +96,7 @@ const FormAddHero = () => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <Textarea
@@ -98,6 +109,7 @@ const FormAddHero = () => {
             payload: e.target.value,
           })
         }
+        disabled={isLoading}
         required
       />
       <InputFileImages
@@ -105,9 +117,13 @@ const FormAddHero = () => {
         setValue={(files) =>
           dispatch({ type: SuperheroActionTypes.SET_PICTURES, payload: files })
         }
+        disabled={isLoading}
         value={superhero.pictures}
       />
-      <Button type="submit">Add Hero</Button>
+      {isLoading ? <Preloader /> : null}
+      <Button type="submit" disabled={isLoading}>
+        Add Hero
+      </Button>
     </form>
   );
 };

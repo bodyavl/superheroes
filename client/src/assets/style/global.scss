@@ -29,6 +29,11 @@ body {
   color: #475069;
 }
 
+:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 textarea {
   font-family: "Poppins", sans-serif;
   resize: none;

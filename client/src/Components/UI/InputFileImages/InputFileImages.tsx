@@ -5,12 +5,14 @@ interface IInputFileImagesProps {
   name?: string;
   setValue: (files: File[] | []) => void;
   value: File[];
+  disabled?: boolean;
 }
 
 const InputFileImages: FC<IInputFileImagesProps> = ({
   name,
   value,
   setValue,
+  disabled,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -24,6 +26,7 @@ const InputFileImages: FC<IInputFileImagesProps> = ({
   };
 
   const handleCloseClick = (index: number) => {
+    if (disabled) return;
     setValue(value.filter((_, i) => i !== index));
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -33,9 +36,14 @@ const InputFileImages: FC<IInputFileImagesProps> = ({
       <div className={s.preview}>
         {value?.map((image, index) => (
           <div key={index} className={s.image}>
-            <div className={s.close} onClick={() => handleCloseClick(index)}>
+            <button
+              type="button"
+              className={s.close}
+              onClick={() => handleCloseClick(index)}
+              disabled={disabled}
+            >
               &#x2715;
-            </div>
+            </button>
             <img src={URL.createObjectURL(image)} alt="" />
           </div>
         ))}
@@ -43,6 +51,7 @@ const InputFileImages: FC<IInputFileImagesProps> = ({
       <button
         className={s.button}
         type="button"
+        disabled={disabled}
         onClick={handleSelectButtonClick}
       >
         Add image(s)
