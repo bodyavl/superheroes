@@ -3,4 +3,10 @@
   justify-content: center;
   flex-direction: column;
   gap: 25px;
+  .noheroes {
+    margin-top: 50px;
+    color: #8e95a9;
+    text-align: center;
+    line-height: 24px; /* 150% */
+  }
 }

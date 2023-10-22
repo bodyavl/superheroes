@@ -1,0 +1,22 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  .title {
+    color: #ebeef5;
+    text-align: center;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 56px; /* 116.667% */
+    letter-spacing: -0.96px;
+  }
+  p {
+    color: #8e95a9;
+    text-align: center;
+    line-height: 24px; /* 150% */
+  }
+}

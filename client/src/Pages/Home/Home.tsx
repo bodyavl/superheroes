@@ -15,6 +15,11 @@ const Home = () => {
       {isLoading ? <Preloader /> : null}
       <div className={s.container}>
         <Info />
+        {response.items.length < 1 ? (
+          <span className={s.noheroes}>
+            No superheroes yet. Be the first one to add a new!
+          </span>
+        ) : null}
         <Superheroes superheroes={response.items} />
         <Pages
           totalPages={response.meta.totalPages}

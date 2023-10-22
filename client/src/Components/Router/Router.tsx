@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AddHero, Details, EditHero, Home } from "../../Pages";
+import { AddHero, Details, EditHero, Home, Error } from "../../Pages";
 import { homeLoader } from "../../Pages/Home/Home";
 import { BasicLayout } from "../Layouts";
 import { detailsLoader } from "../../Pages/Details/Details";
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <BasicLayout />,
-    errorElement: <div>404</div>,
+    errorElement: <Error />,
     children: [
       {
         index: true,
