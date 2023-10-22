@@ -1,23 +1,14 @@
-#  Programming Blog client
+# Superheroes client
 
 At first run server using [specification](../server/README.md)
 
-To run locally:
+### To run locally:
 
 ```
-   $ npm install
+$ pnpm install
 
-   $ cp .env-example .env
+$ cp .env-example .env
 
-   $ npm run dev
+$ pnpm run dev
 ```
 
-To run in docker:
-
-```
-   $ cp .env.example .env.prod
-
-   $ docker build -t programming-blog-client-image .
-
-   $ docker compose up -d
-```

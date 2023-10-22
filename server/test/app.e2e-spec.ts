@@ -25,17 +25,25 @@ describe('AppController (e2e)', () => {
 
   describe('/superheroes', () => {
     it('/ (POST)', () => {
-      const data = new FormData();
-      data.append('nickname', 'Superman');
-      data.append('real_name', 'Clark Kent');
-      data.append('origin_description', 'Krypton');
-      data.append('superpowers', 'Flight, super strength, x-ray vision');
-      data.append('catch_phrase', 'Up, up and away!');
+      // const data = new FormData();
+      // data.append('nickname', 'Superman');
+      // data.append('real_name', 'Clark Kent');
+      // data.append('origin_description', 'Krypton');
+      // data.append('superpowers', 'Flight, super strength, x-ray vision');
+      // data.append('catch_phrase', 'Up, up and away!');
+
+      const data = {
+        nickname: 'Superman',
+        real_name: 'Clark Kent',
+        origin_description: 'Krypton',
+        superpowers: 'Flight, super strength, x-ray vision',
+        catch_phrase: 'Up, up and away!',
+      };
 
       return request(app.getHttpServer())
         .post('/superheroes')
-        .set('Content-Type', 'multipart/form-data')
         .send(data)
+        .set('Content-Type', 'multipart/form-data')
         .expect(200);
     });
   });

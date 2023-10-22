@@ -10,7 +10,6 @@ interface ICarouselProps {
 
 const settings: Settings = {
   dots: true,
-
   infinite: true,
   speed: 500,
   slidesToShow: 1,
@@ -20,15 +19,13 @@ const settings: Settings = {
 
 const Carousel: FC<ICarouselProps> = ({ images }) => {
   return (
-    <div className={s.container}>
-      <Slider {...settings}>
-        {images.map((image, index) => (
-          <div key={index} className={s.imageContainer}>
-            <img src={image} alt={image} className={s.image} />
-          </div>
-        ))}
-      </Slider>
-    </div>
+    <Slider {...settings} className={s.container}>
+      {images.map((image, index) => (
+        <div key={index} className={s.imageContainer}>
+          <img src={image} alt={image} className={s.image} />
+        </div>
+      ))}
+    </Slider>
   );
 };
 
