@@ -60,19 +60,19 @@ export class SuperheroesService {
     const superhero = await this.superheroesRepository.query(
       /*sql*/ `
       SELECT s.*,
-            CASE
-               WHEN count(p.id) = 0 THEN null
-               ELSE json_agg(
-                json_build_object(
-                  'id', p.id
-                )
-              ) 
-            END AS pictures 
-          FROM superhero s 
-          LEFT JOIN picture p 
-          ON p."superheroId" = s.id 
-          WHERE s.id = $1
-          GROUP BY s.id`,
+      CASE
+        WHEN count(p.id) = 0 THEN null
+        ELSE json_agg(
+          json_build_object(
+            'id', p.id
+          )
+        ) 
+      END AS pictures 
+      FROM superhero s 
+      LEFT JOIN picture p 
+      ON p."superheroId" = s.id 
+      WHERE s.id = $1
+      GROUP BY s.id`,
       [id],
     );
 
